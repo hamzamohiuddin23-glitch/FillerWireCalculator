@@ -1,28 +1,21 @@
-name: Build iOS App
-
-on:
-  push:
-    branches:
-      - master  # Trigger this workflow when you push to the 'master' branch
-
 jobs:
   build:
-    runs-on: macos-latest  # Runs the build on macOS (because iOS builds need macOS)
+    runs-on: macos-latest  # or any other platform you're using
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2  # Check out your code from the repository
+        uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - name: Set up environment
+        # Add setup steps for your environment, like Python, Node.js, etc.
+      
+      # Add the build step here (e.g., run your build command)
+      - name: Build iOS App
+        run: |
+          # Replace this with your actual build command
+          xcodebuild -workspace YourWorkspace.xcworkspace -scheme YourScheme build
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
         with:
-          python-version: '3.x'  # Use the appropriate Python version for your project
-
-      - name: Install dependencies
-        run: |
-          pip install beeware
-          pip install toga
-          pip install briefcase  # Ensure all necessary dependencies are installed
-
-      - name: Build iOS app
-        run: |
-          briefcase build iOS  # Build the iOS app using Briefcase
+          name: ios-build-output
+          path: path/to/your/build/output/*   # Replace with the actual path to your build output
