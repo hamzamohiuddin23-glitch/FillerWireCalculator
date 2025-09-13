@@ -1,0 +1,27 @@
+name: Build iOS App
+
+on:
+  push:
+    branches:
+      - master  # This will trigger the build when you push to the "master" branch
+
+jobs:
+  build:
+    runs-on: macos-latest  # This will run the build on a macOS environment
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'  # Set the Python version
+
+      - name: Install dependencies
+        run: |
+          pip install beeware
+          pip install toga  # Install necessary dependencies
+
+      - name: Build iOS app
+        run: |
+          briefcase build iOS  # Build the iOS app
