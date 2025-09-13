@@ -31,4 +31,4 @@ jobs:
         uses: actions/upload-artifact@v4  # Use the latest version
         with:
           name: filler-wire-calc-ipa
-          path: "build/filler_wire_calc/ios/xcode/build/Debug-iphonesimulator/FillerWireCalc.app"  # Modify this if the path to your .ipa file is different
+          path: build/filler_wire_calc/ios/xcode/build/Debug-iphonesimulator/App Name [briefcasebuildios]:FillerWireCalc.app  # Modify this if the path to your .ipa file is different
