@@ -3,26 +3,32 @@ name: Build iOS App
 on:
   push:
     branches:
-      - master  # Trigger this workflow when you push to the 'master' branch
+      - master  # Trigger this workflow when you push to the "master" branch
 
 jobs:
   build:
-    runs-on: macos-latest  # Runs the build on macOS (because iOS builds need macOS)
+    runs-on: macos-latest  # Runs the build on macOS (required for iOS builds)
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2  # Check out your code from the repository
+        uses: actions/checkout@v2
 
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.x'  # Use the appropriate Python version for your project
+          python-version: '3.x'
 
       - name: Install dependencies
         run: |
           pip install beeware
           pip install toga
-          pip install briefcase  # Ensure all necessary dependencies are installed
+          pip install briefcase
 
       - name: Build iOS app
         run: |
           briefcase build iOS  # Build the iOS app using Briefcase
+
+      - name: Upload .ipa as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: filler-wire-calc-ipa
+          path: build/filler_wire_calc/ios/xcode/build/Debug-iphonesimulator/FillerWireCalc.app  # Modify this if the path to your .ipa file is different
