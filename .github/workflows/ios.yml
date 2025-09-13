@@ -25,10 +25,25 @@ jobs:
 
       - name: Build iOS app
         run: |
-          briefcase build iOS  # Build the iOS app using Briefcase
+          briefcase build iOS  # Ensure this step is completed first
+
+      - name: List files in build directory
+        run: |
+          echo "Listing the contents of the build directory"
+          ls -R build/filler_wire_calc/ios/xcode/build/Debug-iphonesimulator/
+
+      - name: Archive and Export .ipa
+        run: |
+          xcodebuild -workspace build/filler_wire_calc/ios/xcode/FillerWireCalc.xcworkspace \
+                     -scheme FillerWireCalc -sdk iphoneos archive \
+                     -archivePath build/filler_wire_calc/ios/xcode/build/FillerWireCalc.xcarchive
+
+          xcodebuild -exportArchive -archivePath build/filler_wire_calc/ios/xcode/build/FillerWireCalc.xcarchive \
+                     -exportPath build/filler_wire_calc/ios/xcode/build/Debug-iphonesimulator/FillerWireCalc.ipa \
+                     -exportOptionsPlist build/filler_wire_calc/ios/xcode/exportOptions.plist
 
       - name: Upload .ipa as artifact
-        uses: actions/upload-artifact@v4  # Use the latest version
+        uses: actions/upload-artifact@v4
         with:
           name: filler-wire-calc-ipa
-          path: build/filler_wire_calc/ios/xcode/build/Debug-iphonesimulator/App Name [briefcasebuildios]:FillerWireCalc.app  # Modify this if the path to your .ipa file is different
+          path: build/filler_wire_calc/ios/xcode/build/Debug-iphonesimulator/FillerWireCalc.ipa
