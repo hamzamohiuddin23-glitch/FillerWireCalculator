@@ -25,14 +25,4 @@ jobs:
 
       - name: Build iOS app
         run: |
-            # Replace this with your actual build command
-            xcodebuild -workspace YourWorkspace.xcworkspace -scheme YourScheme build
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: ios-build-output
-          path: path/to/your/build/output/*   # Replace with the actual path to your build output
-
-
-       
+          briefcase build iOS  # Build the iOS app using Briefcase
