@@ -28,7 +28,7 @@ jobs:
           briefcase build iOS  # Build the iOS app using Briefcase
 
       - name: Upload .ipa as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3  # Use the latest version
         with:
           name: filler-wire-calc-ipa
           path: build/filler_wire_calc/ios/xcode/build/Debug-iphonesimulator/FillerWireCalc.app  # Modify this if the path to your .ipa file is different
