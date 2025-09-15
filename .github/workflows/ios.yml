@@ -27,13 +27,14 @@ jobs:
         run: |
           briefcase build iOS  # Ensure this step is completed first
 
-      - name: List files in build directory
+      - name: List files in build directory (Check if .xcworkspace is created)
         run: |
           echo "Listing the contents of the build directory"
-          ls -R build/filler_wire_calc/ios/xcode/build/Debug-iphonesimulator/
+          ls -R build/filler_wire_calc/ios/xcode/
 
       - name: Archive and Export .ipa
         run: |
+          # Now that we've verified the workspace exists, we can proceed
           xcodebuild -workspace build/filler_wire_calc/ios/xcode/FillerWireCalc.xcworkspace \
                      -scheme FillerWireCalc -sdk iphoneos archive \
                      -archivePath build/filler_wire_calc/ios/xcode/build/FillerWireCalc.xcarchive
